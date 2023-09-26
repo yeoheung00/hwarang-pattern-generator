@@ -20,16 +20,16 @@
 
 .controler{
   display: flex;
-  flex-wrap: wrap
-  ;
+  flex-wrap: wrap;
   background-color: darkgray;
-  padding: 10px 20px;
+  padding: 0 20px;
 }
 
 .wrap{
   height: 30px;
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .toolName{
@@ -44,7 +44,7 @@
   width: 2px;
   height: 30px;
   background-color: gray;
-  margin: 0 20px;
+  margin: 10px 20px;
 }
 
 .size>*{

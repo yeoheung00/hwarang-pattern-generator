@@ -253,49 +253,49 @@ export default function Generator() {
 
   const select = (event: { clientX: number; clientY: number; }) => {
     const x = event.clientX + scrollPosition[0];
-    const y = event.clientY - 50 + scrollPosition[1];
+    const y = event.clientY - (viewerRef.current ? viewerRef.current.offsetTop : 0) + scrollPosition[1];
     const cord = getFontPosition(x, y);
     console.log(cord);
     const tempColor = colors;
-    if(cord.x < 0 || cord.y < 0) return;
-    switch(brush){
+    if (cord.x < 0 || cord.y < 0) return;
+    switch (brush) {
       case "distance":
         console.log("distance: ", distance);
-            const calc = cord.y % 2 == 1 ? 1 : 0;
-        switch(distance){
+        const calc = cord.y % 2 == 1 ? 1 : 0;
+        switch (distance) {
           case 3:
-            if(cord.x-2>=0) tempColor[cord.y][cord.x-2] = fill;
-            if(cord.x+2<=tempColor[cord.y].length) tempColor[cord.y][cord.x+2] = fill;
+            if (cord.x - 2 >= 0) tempColor[cord.y][cord.x - 2] = fill;
+            if (cord.x + 2 <= tempColor[cord.y].length) tempColor[cord.y][cord.x + 2] = fill;
 
-            if(cord.y-1>=0){
-              if(cord.x-2+calc>=0) tempColor[cord.y-1][cord.x-2+calc] = fill;
-              if(cord.x+1+calc<tempColor[cord.y-1].length) tempColor[cord.y-1][cord.x+1+calc] = fill;
+            if (cord.y - 1 >= 0) {
+              if (cord.x - 2 + calc >= 0) tempColor[cord.y - 1][cord.x - 2 + calc] = fill;
+              if (cord.x + 1 + calc < tempColor[cord.y - 1].length) tempColor[cord.y - 1][cord.x + 1 + calc] = fill;
             }
-            if(cord.y+1<tempColor.length){
-              if(cord.x-2+calc>=0) tempColor[cord.y+1][cord.x-2+calc] = fill;
-              if(cord.x+1+calc<=tempColor[cord.y+1].length) tempColor[cord.y+1][cord.x+1+calc] = fill;
+            if (cord.y + 1 < tempColor.length) {
+              if (cord.x - 2 + calc >= 0) tempColor[cord.y + 1][cord.x - 2 + calc] = fill;
+              if (cord.x + 1 + calc <= tempColor[cord.y + 1].length) tempColor[cord.y + 1][cord.x + 1 + calc] = fill;
             }
 
-            if(cord.y-2>=0){
-              tempColor[cord.y-2][cord.x] = fill;
-              if(cord.x-1>=0) tempColor[cord.y-2][cord.x-1] = fill;
-              if(cord.x+1<tempColor[cord.y-2].length) tempColor[cord.y-2][cord.x+1] = fill;
+            if (cord.y - 2 >= 0) {
+              tempColor[cord.y - 2][cord.x] = fill;
+              if (cord.x - 1 >= 0) tempColor[cord.y - 2][cord.x - 1] = fill;
+              if (cord.x + 1 < tempColor[cord.y - 2].length) tempColor[cord.y - 2][cord.x + 1] = fill;
             }
-            if(cord.y+2<tempColor.length){
-              tempColor[cord.y+2][cord.x] = fill;
-              if(cord.x-1>=0) tempColor[cord.y+2][cord.x-1] = fill;
-              if(cord.x+1<=tempColor[cord.y+2].length) tempColor[cord.y+2][cord.x+1] = fill;
+            if (cord.y + 2 < tempColor.length) {
+              tempColor[cord.y + 2][cord.x] = fill;
+              if (cord.x - 1 >= 0) tempColor[cord.y + 2][cord.x - 1] = fill;
+              if (cord.x + 1 <= tempColor[cord.y + 2].length) tempColor[cord.y + 2][cord.x + 1] = fill;
             }
           case 2:
-            if(cord.x-1>=0) tempColor[cord.y][cord.x-1] = fill;
-            if(cord.x+1<=tempColor[cord.y].length) tempColor[cord.y][cord.x+1] = fill;
-            if(cord.y-1>=0){
-              if(cord.x-1+calc>=0) tempColor[cord.y-1][cord.x-1+calc] = fill;
-              if(cord.x+calc<tempColor[cord.y-1].length) tempColor[cord.y-1][cord.x+calc] = fill;
+            if (cord.x - 1 >= 0) tempColor[cord.y][cord.x - 1] = fill;
+            if (cord.x + 1 <= tempColor[cord.y].length) tempColor[cord.y][cord.x + 1] = fill;
+            if (cord.y - 1 >= 0) {
+              if (cord.x - 1 + calc >= 0) tempColor[cord.y - 1][cord.x - 1 + calc] = fill;
+              if (cord.x + calc < tempColor[cord.y - 1].length) tempColor[cord.y - 1][cord.x + calc] = fill;
             }
-            if(cord.y+1<tempColor.length){
-              if(cord.x-1+calc>=0) tempColor[cord.y+1][cord.x-1+calc] = fill;
-              if(cord.x+calc<=tempColor[cord.y+1].length) tempColor[cord.y+1][cord.x+calc] = fill;
+            if (cord.y + 1 < tempColor.length) {
+              if (cord.x - 1 + calc >= 0) tempColor[cord.y + 1][cord.x - 1 + calc] = fill;
+              if (cord.x + calc <= tempColor[cord.y + 1].length) tempColor[cord.y + 1][cord.x + calc] = fill;
             }
           case 1:
             tempColor[cord.y][cord.x] = fill;
@@ -362,7 +362,7 @@ export default function Generator() {
   return (
     <div className={styles.root}>
       <div className={styles.controler}>
-        <div className={styles.size}>
+        <div className={styles.wrap}>
           <label htmlFor="column" className={styles.toolName}>Column</label>
           <input className={styles.input} style={{ marginRight: 10 }} id="column" type="number" value={size[0]} onChange={columnChange} />
           <label htmlFor="row" className={styles.toolName}>Row</label>
@@ -387,7 +387,9 @@ export default function Generator() {
           <button className={`${styles.brush} ${brush == "random" ? styles.active : null}`} onClick={toRandom}>random</button>
         </div>
         <div className={styles.divider} />
-        <input className={styles.input} type="number" value={brush == "distance" ? distance : random} onChange={brushValueChange} />
+        <div className={styles.wrap}>
+          <input className={styles.input} type="number" value={brush == "distance" ? distance : random} onChange={brushValueChange} />
+        </div>
       </div>
       <div className={styles.display} onScroll={scrolling}>
         <div className={styles.scroller} onClick={select}>
