@@ -1,0 +1,77 @@
+.root{
+
+}
+
+.root button{
+  border: none;
+  background-color: gray;
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.colorPicker{
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: gray;
+}
+
+.controler{
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap
+  ;
+  background-color: darkgray;
+  padding: 10px 20px;
+}
+
+.wrap{
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.toolName{
+  vertical-align: middle;
+  font-size: medium;
+  font-weight: bold;
+  line-height: 30px;
+  margin-right: 10px;
+}
+
+.divider{
+  width: 2px;
+  height: 30px;
+  background-color: gray;
+  margin: 0 20px;
+}
+
+.size>*{
+  display: inline;
+}
+
+.brush.active{
+  background-color: #555;
+}
+
+.input{
+  width: 50px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: gray;
+  padding: 0 5px;
+}
+
+.display{
+  width: 100%;
+  height: calc(100vh - 50px);
+  overflow: scroll;
+}
+
+.scroller{
+  width: fit-content;
+  height: fit-content;
+}
