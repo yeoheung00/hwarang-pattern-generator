@@ -396,12 +396,12 @@ export default function Generator() {
         <div className={styles.divider} />
         <div className={styles.wrap}>
           <label className={styles.toolName}>Brush</label>
-          <button className={`${styles.brush} ${brush == "distance" ? styles.active : null}`} style={{ marginRight: 10 }} onClick={toDistance}>distance</button>
-          <button className={`${styles.brush} ${brush == "random" ? styles.active : null}`} onClick={toRandom}>random</button>
+          <button className={`${styles.brush} ${brush == "distance" ? styles.active : null}`} style={{ marginRight: 10 }} onClick={toDistance}>Radius</button>
+          <button className={`${styles.brush} ${brush == "random" ? styles.active : null}`} onClick={toRandom}>Random</button>
         </div>
         <div className={styles.divider} />
         <div className={styles.wrap}>
-          <input className={styles.input} type="number" value={brush == "distance" ? distance : random} onChange={brushValueChange} />
+          <input className={styles.input} type="number" value={brush == "distance" ? distance : random} max={brush=="distance"?3:200} min={brush=="distance"?1:20} onChange={brushValueChange} />
         </div>
       </div>
       <div className={styles.display} onScroll={scrolling}>
